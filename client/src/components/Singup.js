@@ -1,0 +1,103 @@
+import React, { useRef, useState } from 'react'
+import { Link } from 'react-router-dom';
+
+function Singup() {
+  let [profile, setProfile] = useState("https://i.pinimg.com/736x/03/39/01/033901a8787e9dfcf74d80cf75bc3d60.jpg");
+  let firstNameInputRef =useRef();
+  let lastNameInputRef = useRef();
+  let ageInputRef = useRef();
+  let genderInputRef = useRef();
+  let emailInputRef = useRef();
+  let passwordInputRef = useRef();
+  let mobileNoInputRef = useRef();
+  let profilePicInputRef=useRef();
+
+ let postingDataIntoServer = async ()=>{
+     let dataToSend = new FormData()
+     dataToSend.append("firstName",firstNameInputRef.current.value);
+     dataToSend.append("lastName",lastNameInputRef.current.value);
+     dataToSend.append("age",ageInputRef.current.value);
+     dataToSend.append("gender",genderInputRef.current.value); 
+     dataToSend.append("email",emailInputRef.current.value);
+     dataToSend.append("password",passwordInputRef.current.value);
+     dataToSend.append("mobileNo",mobileNoInputRef.current.value);
+     dataToSend.append("profilePic",profilePicInputRef.current.files[0]);
+
+     let reqOptions = {
+       method:"post",
+       body:dataToSend,
+      }
+
+     let JSONData = await fetch("/creatingAccount",reqOptions);
+
+     let JSOData = await JSONData.json();
+       console.log(JSOData);
+       alert(JSOData.msg)
+
+    }      
+  return (
+    <div  className="App">
+        <h1>SignUp</h1>
+     <form>
+
+      <div>
+        <label>FirstName</label>
+        <input ref={firstNameInputRef}></input>
+      </div>
+
+        <div>
+        <label>LastName</label>
+        <input ref={lastNameInputRef}></input>
+      </div>
+
+        <div>
+        <label>Age</label>
+        <input type='"number'  ref={ageInputRef}></input>
+      </div>
+
+        <div>
+        <label>Gender</label>
+        <input  ref={genderInputRef}></input>
+      </div>
+
+        <div>
+        <label>Email</label>
+        <input type='email'  ref={emailInputRef}></input>
+      </div>
+
+        <div>
+        <label>Password</label>
+        <input   ref={passwordInputRef}></input>
+      </div>
+
+        <div>
+        <label>MobileNo</label>
+        <input type='"number'  ref={mobileNoInputRef}></input>
+      </div>
+
+      <div>
+        <label>Profile</label>
+        <input type='file'  ref={profilePicInputRef} onChange={(eo)=>{
+          let selectedPath = URL.createObjectURL(eo.target.files[0]);
+          setProfile(selectedPath);
+        }}></input>
+      </div>
+
+       <div>
+        <img src={profile} alt=''></img>
+       </div>
+
+      <div>
+        <button type='button' onClick={()=>{
+          postingDataIntoServer()
+        }}>signup</button>
+      </div>
+
+     </form>
+     <br></br>
+    <Link to="/">login</Link>
+    </div>
+  )
+}
+
+export default Singup
