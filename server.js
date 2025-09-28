@@ -141,7 +141,7 @@ app.post("/login",upload.none(),async(req,res)=>{
     }
 })
 
-app.post("/creatingAccount",upload.single("profilePic"),async(req,res)=>{
+app.post("/newAccount",upload.single("profilePic"),async(req,res)=>{
   console.log(req.body);
   console.log(req.file);
 let details = await admin.find()
@@ -163,6 +163,10 @@ let details = await admin.find()
     } catch (error) {
       res.json("data is not inserted into mangodb");
     }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 let connectedToMGDB = async ()=>{

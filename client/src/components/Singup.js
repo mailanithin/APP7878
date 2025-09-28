@@ -28,7 +28,7 @@ function Singup() {
        body:dataToSend,
       }
 
-     let JSONData = await fetch("/creatingAccount",reqOptions);
+     let JSONData = await fetch("/newAccount",reqOptions);
 
      let JSOData = await JSONData.json();
        console.log(JSOData);
