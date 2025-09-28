@@ -165,9 +165,9 @@ let details = await admin.find()
     }
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
 let connectedToMGDB = async ()=>{
     try{await mongoose.connect("mongodb+srv://Nithin_75:nithin_75@batch250203.bljaajo.mongodb.net/Munna?retryWrites=true&w=majority&appName=Batch250203");
